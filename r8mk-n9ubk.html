@@ -1,0 +1,360 @@
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+         <meta name="viewport" content="width=device-width, initial-scale=1">=
+         <link href="https://fonts.googleapis.com/css2?family=Droid+Arabic+Kufi&display=swap" rel="stylesheet">
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+           <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400..700&display=swap" rel="stylesheet">
+
+           <meta charset="UTF-8">
+           <meta name="viewport" content="width=device-width, initial-scale=1.0">
+           <title>رقمك نصيبك</title>
+           <style>
+            body {
+            font-family: "El Messiri", sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.05) 25%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.1) 50%, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.05) 75%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0.1) 100%);
+            background-size: 50px 50px;
+            background-color: #4b6f9b;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    font-family: "El Messiri", sans-serif;
+    margin-top: 5px; /* رفع العنوان للأعلى */
+}
+
+
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+            padding: 20px;
+            justify-content: center;
+            margin-top: 25px;
+            width: 80%;
+        }
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 10px 8px rgba(255, 255, 255, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 15px 8px rgba(255, 255, 255, 0.3);
+            }
+            100% {
+                box-shadow: 0 0 10px 8px rgba(255, 255, 255, 0.5);
+            }
+        }
+
+        .box {
+            width: 200px;
+            height: 180px;
+            background-color: #273e79;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: 0.3s;
+            border: 4px solid #1e6091;
+            position: relative;
+            color: white;
+            text-align: center;
+            animation: glow 2s ease-in-out infinite;
+        }
+        .box:hover {
+            background-color: #144e78;
+        }
+        .box.opened {
+            background-color: #ff9800;
+            color: black;
+            font-size: 26px;
+            padding: 0px;
+            width: 200px;
+            height: 180px;
+        }
+        .box.zoomed {
+            transform: scale(2.5);
+            z-index: 10;
+            transition: transform 0.3s ease-in-out;
+        }
+        .controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        button {
+            padding: 20px 40px;
+            font-size: 30.36px;
+            border: 2px solid #000;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+            box-shadow: 10px 10px #000000;
+            font-family: "El Messiri", sans-serif;
+        } 
+        button:hover {background-color: #87cfebdc}
+        button:active {
+            
+         background-color: #00000062;
+        box-shadow: 20px #00000067;
+         transform: translateY(4px);
+       }
+
+        .randomize {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .reset {
+            background-color: #f44336;
+            color: white;
+        }
+        .fullscreen {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007BFF;
+            color: white;
+        }
+        .footer {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 18px;
+            color: rgb(255, 255, 255);
+        }
+
+        .box::before {
+            content: "✦";
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            font-size: 23px;
+            color: white;
+        }
+        .box::after {
+            content: "✦";
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            font-size: 24px;
+            color: white;
+        }
+       
+        #timerDisplay {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: white;
+    font-family: 'Droid Arabic Kufi', sans-serif;
+    margin-top: -20px; /* رفع التايمر للأعلى */
+}
+
+
+.timer-controls {
+    display: flex;
+    gap: 36px;
+    justify-content: center;
+    margin-top: -20px; /* رفع الأزرار للأعلى */
+}
+
+    </style>
+</head>
+<body>
+    <h1>رقمك نصيبك</h1>
+
+    <div class="footer">
+        جميع الحقوق محفوظة لدى شركة أبو أحمد وابنائه 2025 ©
+    </div>
+
+    <div id="timerDisplay">02:00</div>
+    <div class="timer-controls">
+        <button id="playButton">ابدأ</button>
+        <button id="resetButton">إعادة التعيين</button>
+    </div>
+
+    <div class="controls">
+        <button class="randomize" onclick="randomizeQuestions()">🔀 خلط الأسئلة</button>
+        <button class="reset" onclick="resetGame()">🔄 إعادة التعيين</button>
+    </div>
+
+    <div class="container" id="gameBoard"></div>
+    <button class="fullscreen" onclick="toggleFullScreen()">⛶ ملء الشاشة</button>
+
+    <script>
+        let timer;
+        let isRunning = false;
+        let timeLeft = 120; 
+        const timerDisplay = document.getElementById("timerDisplay");
+        const playButton = document.getElementById("playButton");
+        const resetButton = document.getElementById("resetButton");
+
+        function updateTimer() {
+          let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+          timerDisplay.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+        }
+
+        function startTimer() {
+        if (isRunning) return;
+        isRunning = true;
+        timer = setInterval(function() {
+        timeLeft--;
+        updateTimer();
+       if (timeLeft <= 0) {
+       clearInterval(timer);
+       isRunning = false;
+       }
+       }, 1000);
+       }
+
+        function resetTimer() {
+        clearInterval(timer);
+        isRunning = false;
+        timeLeft = 120;
+        updateTimer();
+        }
+
+        playButton.addEventListener("click", function() {
+            startTimer();
+        });
+
+        resetButton.addEventListener("click", function() {
+            resetTimer();
+        });
+
+        updateTimer(); 
+
+        let questions = [
+            "تشيل احد المودات",
+            "تتبند عشر دقايق ",
+            "تايم اوت 10 دقايق",
+            "تنزل تغريدة او ستوري",
+            "تختار احد يتعاقب معك",
+            "تبرع بنص نقاطك",
+            "اطعن الي تبي بالشات (تايم اوت)",
+            "اطعن ثنين من الشات تايم اوت",
+            "تبند احد من اختيارك",
+            "مالك شيء عندي",
+            "اطعن الي تبي بالشات (باند)",
+            "تغير صورتك في أي تطبيق حسب اختيار الي معك",
+            "ورنا اخر محادثة عندك", 
+            "كم حصلت عيدية",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ];
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function createBoard() {
+            let gameBoard = document.getElementById("gameBoard");
+            gameBoard.innerHTML = "";
+            for (let i = 0; i < 30; i++) {
+                let box = document.createElement("div");
+                box.classList.add("box");
+                box.textContent = i + 1;
+                box.onclick = function () {
+                    if (!box.classList.contains("opened")) {
+                        box.classList.add("opened");
+                        box.textContent = questions[i];
+                        box.style.backgroundColor = getRowColor(i);
+                        box.classList.add("zoomed");
+                    } else {
+                        box.classList.remove("zoomed");
+                    }
+                };
+                gameBoard.appendChild(box);
+            }
+        }
+
+        function getRowColor(index) {
+            return Math.floor(index / 6) % 2 === 0 ? "#20B2AA" : "#D8BFD8";
+        }
+
+        function randomizeQuestions() {
+            shuffleArray(questions);
+            resetGame();
+        }
+
+        function resetGame() {
+            createBoard();
+        }
+
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        createBoard();
+    </script>
+<!-- شاشة الحماية بكلمة مرور -->
+<div id="passwordScreen" style="position: fixed; inset: 0; background-color: #273e79; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; font-family: 'El Messiri', sans-serif; font-size: 24px; padding: 20px;">
+  <h2 style="font-size: 3em; margin-bottom: 30px;">🚫 هذه الصفحة محمية</h2>
+  <p style="margin-bottom: 20px;">كلمة المرور يالحبيب:</p>
+  <input type="password" id="passwordInput" placeholder="كلمة المرور" style="padding: 20px; font-size: 24px; border-radius: 8px; border: none; text-align: center; width: 300px;">
+  <button onclick="checkPassword()" style="margin-top: 30px; padding: 15px 40px; font-size: 22px; border-radius: 8px; cursor: pointer; background-color: #1e6091; color: white; border: none;">دخول</button>
+</div>
+
+<script>
+  const password = "11228899"; // ← غير كلمة المرور هنا
+
+  function checkPassword() {
+    const input = document.getElementById("passwordInput").value;
+    if (input === password) {
+      document.getElementById("passwordScreen").style.display = "none";
+    } else {
+      alert("خطأ توكل بس");
+    }
+  }
+
+  window.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+      checkPassword();
+    }
+  });
+</script>
+
+</script>
+
+
+</body>
+</html>
