@@ -389,10 +389,14 @@
             return Math.floor(index / 6) % 2 === 0 ? "#20B2AA" : "#D8BFD8";
         }
 
-        function randomizeQuestions() {
-            shuffleArray(questions);
-            resetGame();
-        }
+function randomizeQuestions() {
+    const scream = document.getElementById("screamSound");
+    scream.volume = 1.0; // أعلى صوت
+    scream.play(); // يشغل الصرخة
+
+    shuffleArray(questions);
+    resetGame();
+}
 
         function resetGame() {
             createBoard();
@@ -445,6 +449,8 @@
     <span class="tooltip-text">إذا عندك اقتراحات أو مشاكل، اضغط زر الدعم</span>
   </span>
 </div>
+
+<audio id="screamSound" src="https://www.myinstants.com/media/sounds/tom-and-jerry-scream.mp3"></audio>
 
 
 </body>
