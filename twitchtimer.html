@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pixel Countdown Timer</title>
+<style>
+  /* استيراد خط بكسلات مجاني */
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+  /* إعدادات الصفحة */
+  body {
+    margin: 0;
+    background: transparent; /* شفافية الخلفية */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  /* شكل التايمر */
+  #timer {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 120px;
+    color: #00FF00; /* أخضر نيون */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    user-select: none;
+  }
+</style>
+</head>
+<body>
+  <div id="timer">02:00</div>
+
+<script>
+  let totalSeconds = 120; // 2 دقائق = 120 ثانية
+  const timerElement = document.getElementById('timer');
+
+  function updateTimer() {
+    const minutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+    const seconds = (totalSeconds % 60).toString().padStart(2, '0');
+    timerElement.textContent = `${minutes}:${seconds}`;
+
+    if (totalSeconds > 0) {
+      totalSeconds--;
+    } else {
+      clearInterval(timerInterval);
+    }
+  }
+
+  updateTimer();
+  const timerInterval = setInterval(updateTimer, 1000);
+</script>
+</body>
+</html>
