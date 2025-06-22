@@ -1,55 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Pixel Countdown Timer</title>
-<style>
-  /* استيراد خط بكسلات مجاني */
-  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pixel Timer</title>
 
-  /* إعدادات الصفحة */
-  body {
-    margin: 0;
-    background: transparent; /* شفافية الخلفية */
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
+  <!-- تحميل خط بكسلات -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
 
-  /* شكل التايمر */
-  #timer {
-    font-family: 'Press Start 2P', cursive;
-    font-size: 120px;
-    color: #00FF00; /* أخضر نيون */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    user-select: none;
-  }
-</style>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: transparent;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #timer {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 80px;
+      color: white;
+      text-shadow: 2px 2px 5px black;
+      user-select: none;
+    }
+  </style>
 </head>
 <body>
   <div id="timer">02:00</div>
 
-<script>
-  let totalSeconds = 120; // 2 دقائق = 120 ثانية
-  const timerElement = document.getElementById('timer');
+  <script>
+    let seconds = 120; // دقيقتين
+    const timer = document.getElementById('timer');
 
-  function updateTimer() {
-    const minutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
-    const seconds = (totalSeconds % 60).toString().padStart(2, '0');
-    timerElement.textContent = `${minutes}:${seconds}`;
-
-    if (totalSeconds > 0) {
-      totalSeconds--;
-    } else {
-      clearInterval(timerInterval);
+    function update() {
+      const min = Math.floor(seconds / 60).toString().padStart(2, '0');
+      const sec = (seconds % 60).toString().padStart(2, '0');
+      timer.textContent = `${min}:${sec}`;
+      if (seconds > 0) {
+        seconds--;
+      } else {
+        clearInterval(interval);
+      }
     }
-  }
 
-  updateTimer();
-  const timerInterval = setInterval(updateTimer, 1000);
-</script>
+    update();
+    const interval = setInterval(update, 1000);
+  </script>
 </body>
 </html>
