@@ -2,7 +2,7 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8" />
-  <title>قيد التجهيز</title>
+  <title>شاشة انتظار</title>
 
   <!-- خط بكسلات -->
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
@@ -15,22 +15,25 @@
       height: 100vh;
       overflow: hidden;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       direction: rtl;
     }
 
-    #text {
+    .line {
       font-family: 'Press Start 2P', monospace;
-      font-size: 80px; /* ⬅⬅ نفس حجم التايمر */
+      font-size: 80px;
       color: white;
       text-shadow: 2px 2px 5px black;
       user-select: none;
       white-space: nowrap;
+      margin: 20px 0; /* المسافة بين النصين */
     }
   </style>
 </head>
 <body>
-  <div id="text">قيد التجهيز</div>
+  <div class="line">قيد التجهيز</div>
+  <div class="line">سنعود بعد قليل</div>
 </body>
 </html>
