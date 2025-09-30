@@ -1,456 +1,470 @@
-
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-         <meta name="viewport" content="width=device-width, initial-scale=1">
-         <link href="https://fonts.googleapis.com/css2?family=Droid+Arabic+Kufi&display=swap" rel="stylesheet">
-          <link rel="preconnect" href="https://fonts.googleapis.com">
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-           <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400..700&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>رقمك نصيبك</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400..700&display=swap" rel="stylesheet" />
+<style>
+  /* منع التمرير الزائد */
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
 
-           <meta charset="UTF-8">
-           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-           <title>رقمك نصيبك</title>
-           <style>
-            body {
-            font-family: "El Messiri", sans-serif;
-            text-align: center;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.05) 25%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.1) 50%, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.05) 75%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0.1) 100%);
-            background-size: 50px 50px;
-            background-color: #4b6f9b;
-            color: white;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-.support-button {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    background-color: #6c63ff;
-    color: white;
-    padding: 15px 30px;
-    font-size: 24px;
+  body {
+    font-family: "El Messiri", sans-serif;
+    background: radial-gradient(ellipse at top right, #dcefff 0%, #b6c6e3 45%, #fff 90%);
+    color: #2c3e50;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background 0.5s ease, color 0.5s ease;
+    padding-top: 48px;
+  }
+
+  h1 {
+    font-size: 52px;
+    font-weight: 800;
+    margin: 0 0 12px 0;
+    color: #285b7a;
+    letter-spacing: 2px;
+    transition: color 0.5s ease;
+  }
+
+  #topSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .footer {
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    font-size: 16.5px;
+    color: #47607f;
+    background: #e4f1fe;
+    border-radius: 7px;
+    padding: 8px 24px;
+    box-shadow: 0 2px 8px rgba(44, 94, 148, 0.12);
+    user-select: none;
+    z-index: 1000;
+    transition: background 0.5s ease, color 0.5s ease;
+  }
+
+  #timerDisplay {
+    font-size: 2.7em;
+    color: #218c74;
+    letter-spacing: 2px;
+    transition: color 0.5s ease;
+  }
+
+  .timer-controls {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+
+  button {
+    font-family: "El Messiri", sans-serif;
     border: none;
     border-radius: 8px;
+    font-size: 22px;
+    padding: 15px 36px;
+    margin: 0 0 4px 0;
+    transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.18s;
+    box-shadow: 0 2px 10px rgba(100, 170, 194, 0.10);
     cursor: pointer;
-    box-shadow: 5px 5px #00000070;
-    transition: 0.3s;
-}
-.support-button:hover {
-    background-color: #5548f0;
-}
-.support-button:active {
-    transform: translateY(4px);
-    box-shadow: 2px 2px #00000070;
-}
-.support-container {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
+    outline: none;
+    user-select: none;
+  }
+
+  button:active {
+    transform: translateY(2px);
+  }
+
+  .timer-controls > button {
+    background-color: #e7f7fc;
+    color: #285b7a;
+    border: 2px solid #b2e1e6;
+  }
+
+  .timer-controls > button:hover {
+    background-color: #c0deef;
+  }
+
+  .controls {
+    position: fixed;
+    top: 12px;
+    right: 90px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+    width: 180px;
+  }
+
+  .randomize, .reset, #darkToggle {
+    background-color: initial;
+    width: 140%;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  .randomize {
+    background: linear-gradient(90deg, #50b6d1 70%, #81eddd 100%);
+    color: #273e79;
+    font-weight: bold;
+    border: 2px solid #6fd4ca;
+    margin: 0;
+  }
+
+  .randomize:hover {
+    background: #d1f3ea;
+  }
+
+  .reset {
+    background: linear-gradient(90deg, #ffe7df 50%, #ffd0a7 100%);
+    color: #9c3b3b;
+    font-weight: bold;
+    border: 2px solid #ffa54f;
+    margin: 0;
+  }
+
+  .reset:hover {
+    background: #fff8f1;
+  }
+
+  #darkToggle {
+    margin: 0;
+    background: linear-gradient(90deg, #202428 0%, #3a3f45 100%);
+    border-radius: 12px;
+    color: #a0d8ef;
+    font-weight: 900;
+    padding: 14px 0;
+    font-size: 20px;
+    border: 2px solid #528ebf;
+    cursor: pointer;
+    box-shadow: 0 3px 10px #4477abcc;
+    transition: all 0.25s ease-in-out;
+    user-select: none;
+  }
+
+  #darkToggle:hover {
+    background: linear-gradient(90deg, #3a4a62 0%, #5e7fa5 100%);
+    color: #d2f0ff;
+    box-shadow: 0 5px 20px #5ea3f0cc;
+  }
+
+  #darkToggle:active {
+    background: linear-gradient(90deg, #2f3f59 0%, #4174a1 100%);
+    color: #a0d8ef;
+    box-shadow: 0 2px 8px #3a6ea1cc inset;
+  }
+
+  .fullscreen {
+    background-color: #314d68;
+    color: #fff;
+    border: 2px solid #285b7a;
+    position: fixed;
+    bottom: 36px;
+    right: 36px;
+    box-shadow: 0px 3px 16px rgba(44, 94, 148, 0.12);
+    width: 240px;
+    padding: 12px 15px;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    padding: 0 0 60px 0;
+    width: 93vw;
+    max-width: 1100px;
+    margin-top: 20px;
+    margin-bottom: 80px;
+    transition: background 0.5s ease;
+  }
+
+  @keyframes glow-soft {
+    0% { box-shadow: 0 0 6px 3px #bce6fb; }
+    45% { box-shadow: 0 0 16px 8px #e8e8fd; }
+    100% { box-shadow: 0 0 6px 3px #bce6fb; }
+  }
+
+  .box {
+    width: 140px;
+    height: 130px;
+    background: linear-gradient(120deg, #ecf0f5 80%, #dde3ee 100%);
     display: flex;
     align-items: center;
-    gap: 10px;
-}
+    justify-content: center;
+    font-size: 46px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px #deefff;
+    border: 3px solid #9ac4cf;
+    position: relative;
+    color: #1a2e4d;
+    animation: glow-soft 2.6s ease-in-out infinite;
+    transition: background 0.22s, color 0.22s, border 0.22s, transform 0.22s;
+    text-align: center;
+    overflow: hidden;
+    user-select: none;
+  }
 
-.support-button {
-    background-color: #6c63ff;
-    color: white;
-    padding: 15px 30px;
-    font-size: 24px;
-    border: none;
+  .box:hover {
+    background: linear-gradient(120deg, #bde7f8 80%, #d7e9fc 100%);
+    color: #1e6091;
+    border-color: #81c7ee;
+    z-index: 1;
+    box-shadow: 0 4px 22px #d4eafa;
+  }
+
+  .box.opened {
+    background: linear-gradient(120deg, #ffe5c9 75%, #fff9f2 100%);
+    color: #273e79;
+    font-size: 21px;
+    border: 3px solid #d6b596;
+    z-index: 2;
+    animation: none;
+  }
+
+  .box.zoomed {
+    transform: scale(2.2);
+    z-index: 10;
+    box-shadow: 0 0 40px #ebc89e;
+  }
+
+  .box::before { content: "◦"; position: absolute; top: 6px; left: 8px; font-size: 14px; color: #a6adba; }
+  .box::after { content: "◦"; position: absolute; bottom: 8px; right: 10px; font-size: 14px; color: #a6adba; }
+
+  /* Password Screen */
+  #passwordScreen {
+    position: fixed;
+    inset: 0;
+    background-color: #daf0ffdd;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #304563;
+    font-family: "El Messiri", sans-serif;
+    font-size: 22px;
+    padding: 20px;
+    box-shadow: 0 0 44px #f5f8fa77;
+    transition: background 0.3s, color 0.3s;
+  }
+  #passwordScreen h2 {
+    font-size: 2.3em;
+    margin-bottom: 20px;
+    color: #218c74;
+    letter-spacing: 2px;
+    font-weight: bolder;
+  }
+  #passwordScreen input[type="password"] {
+    padding: 18px;
+    font-size: 22px;
+    border-radius: 8px;
+    border: 1px solid #9ac4cf;
+    text-align: center;
+    width: 280px;
+    background: #fff;
+    color: #314d68;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 15px #e2eff6;
+    outline: none;
+    transition: border 0.3s;
+  }
+  #passwordScreen button {
+    margin-top: 20px;
+    padding: 12px 34px;
+    font-size: 19px;
     border-radius: 8px;
     cursor: pointer;
-    box-shadow: 5px 5px #00000070;
-    transition: 0.3s;
-}
-
-.support-button:hover {
-    background-color: #5548f0;
-}
-
-.support-button:active {
-    transform: translateY(4px);
-    box-shadow: 2px 2px #00000070;
-}
-
-.info-tooltip {
-    position: relative;
-    font-size: 34px;
-    cursor: default;
-    color: white;
-     left: 225%;
-}
-
-.tooltip-text {
-    visibility: hidden;
-    width: 230px;
-    background-color: #222;
+    background: #50b6d1;
     color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 10px;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -115px;
-    opacity: 0;
-    transition: opacity 0.3s;
-    font-size: 16px;
-}
+    border: none;
+    font-weight: bold;
+    transition: background 0.3s;
+  }
+  #passwordScreen button:hover { background: #218c74; }
 
-.info-tooltip:hover .tooltip-text {
-    visibility: visible;
-    opacity: 1;
-}
+  /* 🌙 الوضع الليلي */
+  body.dark-mode {
+    background: radial-gradient(circle at top left, #1a1d21 0%, #101215 100%);
+    color: #e0e6ed;
+  }
+  body.dark-mode h1 { color: #9fc9ff; }
+  body.dark-mode .footer {
+    background: #222831; color: #cfd9e3;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  }
+  body.dark-mode #timerDisplay { color: #7cd1ff; }
+  body.dark-mode .timer-controls > button {
+    background-color: #2a2f36; color: #e0e6ed;
+    border: 2px solid #505c6e;
+  }
+  body.dark-mode .timer-controls > button:hover { background-color: #3d495c; }
+  body.dark-mode .box {
+    background: linear-gradient(120deg, #2a2f36 80%, #1e2227 100%);
+    color: #d8e2f1; border: 3px solid #3e4a5a;
+    box-shadow: 0 0 15px #0077ff80;
+  }
+  body.dark-mode .box:hover {
+    background: linear-gradient(120deg, #3a4350 80%, #2c333b 100%);
+    border-color: #6a7c91; color: #cfe4ff;
+  }
+  body.dark-mode .box.opened {
+    background: linear-gradient(120deg, #514232 75%, #2b2723 100%);
+    border: 3px solid #8c6a4f; color: #ffe8c2;
+  }
+  body.dark-mode .fullscreen {
+    background-color: #2a2f36;
+    border: 2px solid #505c6e;
+    color: #e0e6ed;
+  }
+  body.dark-mode #passwordScreen {
+    background-color: #1d2125dd; color: #e0e6ed;
+  }
+  body.dark-mode #passwordScreen h2 { color: #9fc9ff; }
+  body.dark-mode #passwordScreen input[type="password"] {
+    background: #2a2f36; color: #e0e6ed; border: 1px solid #505c6e;
+  }
+  body.dark-mode #passwordScreen button { background: #3a6ea5; }
+  body.dark-mode #passwordScreen button:hover { background: #28527a; }
 
-
-
-        }
-        h1 {
-    font-size: 48px;
-    margin-bottom: 20px;
-    font-family: "El Messiri", sans-serif;
-    margin-top: 5px; /* رفع العنوان للأعلى */
-}
-
-
-
-        .container {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 12px;
-            padding: 20px;
-            justify-content: center;
-            margin-top: 25px;
-            width: 80%;
-        }
-        @keyframes glow {
-            0% {
-                box-shadow: 0 0 10px 8px rgba(255, 255, 255, 0.5);
-            }
-            50% {
-                box-shadow: 0 0 15px 8px rgba(255, 255, 255, 0.3);
-            }
-            100% {
-                box-shadow: 0 0 10px 8px rgba(255, 255, 255, 0.5);
-            }
-        }
-
-        .box {
-            width: 200px;
-            height: 180px;
-            background-color: #273e79;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 64px;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 12px;
-            transition: 0.3s;
-            border: 4px solid #1e6091;
-            position: relative;
-            color: white;
-            text-align: center;
-            animation: glow 2s ease-in-out infinite;
-        }
-        .box:hover {
-            background-color: #144e78;
-        }
-        .box.opened {
-            background-color: #ff9800;
-            color: black;
-            font-size: 26px;
-            padding: 0px;
-            width: 200px;
-            height: 180px;
-        }
-        .box.zoomed {
-            transform: scale(2.5);
-            z-index: 10;
-            transition: transform 0.3s ease-in-out;
-        }
-        .controls {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        button {
-            padding: 20px 40px;
-            font-size: 30.36px;
-            border: 2px solid #000;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: 0.3s;
-            box-shadow: 10px 10px #000000;
-            font-family: "El Messiri", sans-serif;
-        } 
-        button:hover {background-color: #87cfebdc}
-        button:active {
-            
-         background-color: #00000062;
-        box-shadow: 20px #00000067;
-         transform: translateY(4px);
-       }
-
-        .randomize {
-            background-color: #4CAF50;
-            color: white;
-        }
-        .reset {
-            background-color: #f44336;
-            color: white;
-        }
-        .fullscreen {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            background-color: #007BFF;
-            color: white;
-        }
-        .footer {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            font-size: 18px;
-            color: rgb(255, 255, 255);
-        }
-
-        .box::before {
-            content: "✦";
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            font-size: 23px;
-            color: white;
-        }
-        .box::after {
-            content: "✦";
-            position: absolute;
-            bottom: 5px;
-            right: 5px;
-            font-size: 24px;
-            color: white;
-        }
-       
-        #timerDisplay {
-    font-size: 3em;
-    margin-bottom: 20px;
-    color: white;
-    font-family: 'Droid Arabic Kufi', sans-serif;
-    margin-top: -20px; /* رفع التايمر للأعلى */
-}
-
-
-.timer-controls {
-    display: flex;
-    gap: 36px;
-    justify-content: center;
-    margin-top: -20px; /* رفع الأزرار للأعلى */
-}
-
-    </style>
+</style>
 </head>
 <body>
+  <div id="topSection">
     <h1>رقمك نصيبك</h1>
-
-    <div class="footer">
-        جميع الحقوق محفوظة لدى شركة أبو أحمد وابنائه 2025 ©
-    </div>
-
     <div id="timerDisplay">02:00</div>
     <div class="timer-controls">
-        <button id="playButton">ابدأ</button>
-        <button id="resetButton">إعادة التعيين</button>
+      <button id="playButton">ابدأ</button>
+      <button id="resetButton">إعادة التعيين</button>
     </div>
+  </div>
 
-    <div class="controls">
-        <button class="randomize" onclick="randomizeQuestions()">🔀 خلط الأسئلة</button>
-        <button class="reset" onclick="resetGame()">🔄 إعادة التعيين</button>
-    </div>
+  <div class="controls">
+    <button class="randomize" onclick="randomizeQuestions()">🔀 خلط الأسئلة</button>
+    <button class="reset" onclick="resetGame()">🔄 إعادة التعيين</button>
+    <button id="darkToggle">🌙 دارك مود</button>
+  </div>
 
-    <div class="container" id="gameBoard"></div>
-    <button class="fullscreen" onclick="toggleFullScreen()">⛶ ملء الشاشة</button>
+  <div class="container" id="gameBoard"></div>
 
-    <script>
-        let timer;
-        let isRunning = false;
-        let timeLeft = 120; 
-        const timerDisplay = document.getElementById("timerDisplay");
-        const playButton = document.getElementById("playButton");
-        const resetButton = document.getElementById("resetButton");
+  <button class="fullscreen" onclick="toggleFullScreen()">⛶ ملء الشاشة</button>
 
-        function updateTimer() {
-          let minutes = Math.floor(timeLeft / 60);
-        let seconds = timeLeft % 60;
-          timerDisplay.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
-        }
+  <div class="footer">جميع الحقوق محفوظة لدى شركة أبو أحمد وابنه 2025 ©</div>
 
-        function startTimer() {
-        if (isRunning) return;
-        isRunning = true;
-        timer = setInterval(function() {
-        timeLeft--;
-        updateTimer();
-       if (timeLeft <= 0) {
-       clearInterval(timer);
-       isRunning = false;
-       }
-       }, 1000);
-       }
-
-        function resetTimer() {
-        clearInterval(timer);
-        isRunning = false;
-        timeLeft = 120;
-        updateTimer();
-        }
-
-        playButton.addEventListener("click", function() {
-            startTimer();
-        });
-
-        resetButton.addEventListener("click", function() {
-            resetTimer();
-        });
-
-        updateTimer(); 
-
-        let questions = [
-            "اسمك الثلاثي",
-            "تتبند عشر دقايق ",
-            "تايم اوت 10 دقايق",
-            "تنزل تغريدة او ستوري",
-            "تختار احد يتعاقب معك",
-            "تبرع بنص نقاطك",
-            "آخر واحد أرسل بالشات ينصك",
-            "ورنا محادثاتك مع شات جبت",
-            "من هو آخر الأنبياء؟",
-            "مالك شيء عندي",
-            "كم عدد صفحات القرآن الكريم",
-            "تغير صورتك في أي تطبيق حسب اختيار الي معك",
-            "ورنا اخر محادثة عندك", 
-            "تاخذ نفس الصندوق اللي طلع للشخص اللي قبلك",
-            "هدية لك من البثاث خمسة دولار",
-            "تنصك من الدس 12 ساعة",
-            "باند من البث 20 دقيقة",
-            "ترسل رسالة لشخص من إختيار الشات",
-            "شخص بالشات ماتطيقه",
-            "لا ترسل الا ايموتات الين مايجي دورك مره ثانيه",
-            "الشخص اللي قبلك يسألك سؤال ولازم تجاوب عليه",
-            "قل نعم على كل شيء يقترحه الشات لمدة دقيقة",
-            "اختر كلمة من الشات وقل قصة من 3 جمل تتضمنها",
-            "كم عدد السجدات في القرآن الكريم؟",
-            "اعط البثاث تحدي يسويه",
-            "البثاث يسكت 5 دقايق",
-            "صور رصيدك البنكي في الحساب الاساسي",
-            "صور كل الختومات الي على جواز السفر",
-            "ارسل لاخر شخص في سجل المكالمات رساله من اختيار الشات",
-            "اقلب وجهك",
-            ""
-        ];
-
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
-
-        function createBoard() {
-            let gameBoard = document.getElementById("gameBoard");
-            gameBoard.innerHTML = "";
-            for (let i = 0; i < 30; i++) {
-                let box = document.createElement("div");
-                box.classList.add("box");
-                box.textContent = i + 1;
-                box.onclick = function () {
-                    if (!box.classList.contains("opened")) {
-                        box.classList.add("opened");
-                        box.textContent = questions[i];
-                        box.style.backgroundColor = getRowColor(i);
-                        box.classList.add("zoomed");
-                    } else {
-                        box.classList.remove("zoomed");
-                    }
-                };
-                gameBoard.appendChild(box);
-            }
-        }
-
-        function getRowColor(index) {
-            return Math.floor(index / 6) % 2 === 0 ? "#20B2AA" : "#D8BFD8";
-        }
-
-function randomizeQuestions() {
-    const scream = document.getElementById("screamSound");
-    scream.volume = 1.0; // أعلى صوت
-    scream.play(); // يشغل الصرخة
-
-    shuffleArray(questions);
-    resetGame();
-}
-
-        function resetGame() {
-            createBoard();
-        }
-
-        function toggleFullScreen() {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen();
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                }
-            }
-        }
-
-        createBoard();
-    </script>
-<!-- شاشة الحماية بكلمة مرور -->
-<div id="passwordScreen" style="position: fixed; inset: 0; background-color: #273e79; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; font-family: 'El Messiri', sans-serif; font-size: 24px; padding: 20px;">
-  <h2 style="font-size: 3em; margin-bottom: 30px;">🚫 هذه الصفحة محمية</h2>
-  <p style="margin-bottom: 20px;">كلمة المرور يالحبيب:</p>
-  <input type="password" id="passwordInput" placeholder="كلمة المرور" style="padding: 20px; font-size: 24px; border-radius: 8px; border: none; text-align: center; width: 300px;">
-  <button onclick="checkPassword()" style="margin-top: 30px; padding: 15px 40px; font-size: 22px; border-radius: 8px; cursor: pointer; background-color: #1e6091; color: white; border: none;">دخول</button>
-</div>
+  <div id="passwordScreen">
+    <h2>🚫 هذه الصفحة محمية</h2>
+    <p>كلمة المرور:</p>
+    <input type="password" id="passwordInput" placeholder="كلمة المرور" />
+    <button onclick="checkPassword()">دخول</button>
+  </div>
 
 <script>
-  const password = "11228899"; // ← غير كلمة المرور هنا
-
+  // كلمة المرور
+  const password = "11228899";
   function checkPassword() {
     const input = document.getElementById("passwordInput").value;
     if (input === password) {
       document.getElementById("passwordScreen").style.display = "none";
     } else {
-      alert("خطأ توكل بس");
+      alert("خطأ في كلمة المرور.");
     }
   }
+  window.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") { checkPassword(); }
+  });
 
-  window.addEventListener("keydown", function(e) {
-    if (e.key === "Enter") {
-      checkPassword();
+  // المؤقت
+  let timer; let isRunning = false; let timeLeft = 120;
+  const timerDisplay = document.getElementById("timerDisplay");
+  const playButton = document.getElementById("playButton");
+  const resetButton = document.getElementById("resetButton");
+
+  function updateTimer() {
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+    timerDisplay.textContent = `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
+  }
+  function startTimer() {
+    if (isRunning) return;
+    isRunning = true;
+    timer = setInterval(function () {
+      timeLeft--;
+      updateTimer();
+      if (timeLeft <= 0) { clearInterval(timer); isRunning = false; }
+    }, 1000);
+  }
+  function resetTimer() { clearInterval(timer); isRunning = false; timeLeft = 120; updateTimer(); }
+  playButton.addEventListener("click", () => startTimer());
+  resetButton.addEventListener("click", () => resetTimer());
+  updateTimer();
+
+  // الأسئلة
+  let questions = [
+    "اسمك الثلاثي","تتبند عشر دقايق ","تايم اوت 10 دقايق",
+    "تنزل تغريدة او ستوري","تختار احد يتعاقب معك","تبرع بنص نقاطك",
+    "آخر واحد أرسل بالشات ينصك","ورنا محادثاتك مع شات جبت","من هو آخر الأنبياء؟",
+    "مالك شيء عندي","كم عدد صفحات القرآن الكريم","تغير صورتك في أي تطبيق حسب اختيار الي معك",
+    "ورنا اخر محادثة عندك","تاخذ نفس الصندوق اللي طلع للشخص اللي قبلك",
+    "هدية لك من البثاث خمسة دولار","تنصك من الدس 12 ساعة","باند من البث 20 دقيقة",
+    "ترسل رسالة لشخص من إختيار الشات","شخص بالشات ماتطيقه",
+    "لا ترسل الا ايموتات الين مايجي دورك مره ثانيه","الشخص اللي قبلك يسألك سؤال ولازم تجاوب عليه",
+    "قل نعم على كل شيء يقترحه الشات لمدة دقيقة","اختر كلمة من الشات وقل قصة من 3 جمل تتضمنها",
+    "كم عدد السجدات في القرآن الكريم؟","اعط البثاث تحدي يسويه","البثاث يسكت 5 دقايق",
+    "صور رصيدك البنكي في الحساب الاساسي","صور كل الختومات الي على جواز السفر",
+    "ارسل لاخر شخص في سجل المكالمات رساله من اختيار الشات","اقلب وجهك",""
+  ];
+
+  const gameBoard = document.getElementById("gameBoard");
+  function createBoard() {
+    gameBoard.innerHTML = "";
+    for (let i = 1; i <= 30; i++) {
+      const box = document.createElement("div");
+      box.classList.add("box");
+      box.textContent = i;
+      box.onclick = () => openBox(box, i);
+      gameBoard.appendChild(box);
     }
+  }
+  function openBox(box, index) {
+    if (box.classList.contains("opened")) return;
+    box.classList.add("opened"); box.textContent = questions[index-1] || "جائزة 🎁";
+    box.classList.add("zoomed");
+    setTimeout(() => { box.classList.remove("zoomed"); }, 1500);
+  }
+  function resetGame() { createBoard(); resetTimer(); }
+  function randomizeQuestions() {
+    questions.sort(() => Math.random() - 0.5); createBoard();
+  }
+  function toggleFullScreen() {
+    if (!document.fullscreenElement) { document.documentElement.requestFullscreen(); }
+    else { if (document.exitFullscreen) { document.exitFullscreen(); } }
+  }
+  createBoard();
+
+  // زر الوضع الليلي
+  document.getElementById("darkToggle").addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
   });
 </script>
-
-</script>
-
-<div class="support-container">
-  <button class="support-button" onclick="window.open('https://x2aws.site/support', '_blank')">📩 الدعم</button>
-  <span class="info-tooltip">ℹ️
-    <span class="tooltip-text">إذا عندك اقتراحات أو مشاكل، اضغط زر الدعم</span>
-  </span>
-</div>
-
-<audio id="screamSound" src="https://actions.google.com/sounds/v1/animals/screaming_cat.wav"></audio>
-
 </body>
 </html>
