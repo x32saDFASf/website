@@ -218,7 +218,7 @@
     border: 3px solid #9ac4cf;
     position: relative;
     color: #1a2e4d;
-    animation: glow-soft 2.6s ease-in-out infinite;
+    animation: glow-soft 50.6s ease-in-out infinite;
     transition: background 0.22s, color 0.22s, border 0.22s, transform 0.22s;
     text-align: center;
     overflow: hidden;
@@ -445,12 +445,14 @@
       gameBoard.appendChild(box);
     }
   }
-  function openBox(box, index) {
-    if (box.classList.contains("opened")) return;
-    box.classList.add("opened"); box.textContent = questions[index-1] || "جائزة 🎁";
-    box.classList.add("zoomed");
-    setTimeout(() => { box.classList.remove("zoomed"); }, 1500);
+function openBox(box, index) {
+  if (!box.classList.contains("opened")) {
+    box.classList.add("opened");
+    box.textContent = questions[index-1] || "جائزة 🎁";
   }
+  box.classList.toggle("zoomed");
+}
+
   function resetGame() { createBoard(); resetTimer(); }
   function randomizeQuestions() {
     questions.sort(() => Math.random() - 0.5); createBoard();
@@ -468,3 +470,4 @@
 </script>
 </body>
 </html>
+
