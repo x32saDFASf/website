@@ -1,96 +1,282 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html dir="rtl" lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <title>x2aws</title>
-  <style>
-    body {
-      background-color: black;
-      color: white;
-      margin: 0;
-      height: 100vh;
-      overflow: hidden;
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>x2aws</title>
+    
+    <link rel="icon" href="https://cdn.discordapp.com/attachments/777572687471443989/1468209147660206090/8.png?ex=69832fd2&is=6981de52&hm=cf0aa14e4563fc930b4c055e3a3acaa217bccb7a71b5ceb83c7d230be0d37346&" type="image/png">
 
-    img {
-      max-width: 300px;
-      height: auto;
-      margin-bottom: 20px;
-    }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;500;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.6);
+            --text-main: #f8fafc;
+            --text-secondary: #94a3b8;
+        }
 
-    #container {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
 
-    #btn {
-      position: absolute;
-      padding: 10px 20px;
-      font-size: 18px;
-      border: none;
-      background-color: #e74c3c;
-      color: white;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: top 0.2s, left 0.2s;
-    }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
 
-    h1 {
-      margin-bottom: 10px;
-    }
-  </style>
+        /* خلفية متحركة */
+        .background-glow {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #6366f1 0%, transparent 70%);
+            opacity: 0.2;
+            top: -10%;
+            left: -10%;
+            filter: blur(80px);
+            animation: float 8s ease-in-out infinite;
+            z-index: -1;
+        }
+        
+        .background-glow:nth-child(2) {
+            top: auto;
+            bottom: -10%;
+            left: auto;
+            right: -10%;
+            background: radial-gradient(circle, #ec4899 0%, transparent 70%);
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(50px, 50px); }
+        }
+
+        /* البطاقة */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 60px 40px;
+            border-radius: 30px;
+            width: 90%;
+            max-width: 600px; /* زيادة العرض قليلاً ليستوعب الأيقونات براحة */
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* الصورة الشخصية */
+        .avatar-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            padding: 4px;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--bg-color);
+            display: block;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+            background: linear-gradient(to right, #fff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-family: 'Poppins', sans-serif;
+            color: #6366f1;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* قسم التواصل */
+        .social-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .social-section h3::after {
+            content: '';
+            display: block;
+            width: 50%;
+            height: 3px;
+            background: #6366f1;
+            margin: 8px auto 0;
+            border-radius: 2px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            /* إضافة مهمة: لضمان الترتيب من اليسار لليمين حتى لو الموقع عربي */
+            direction: ltr; 
+        }
+
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 26px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+        }
+
+        .icon-box:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        /* ألوان الأزرار عند التحويم */
+        .instagram:hover { background: #E1306C; box-shadow: 0 0 20px #E1306C; }
+        .youtube:hover { background: #FF0000; box-shadow: 0 0 20px #FF0000; }
+        .twitch:hover { background: #9146FF; box-shadow: 0 0 20px #9146FF; }
+        .discord:hover { background: #5865F2; box-shadow: 0 0 20px #5865F2; }
+        .steam:hover { background: #171a21; box-shadow: 0 0 20px #66c0f4; border-color: #66c0f4; }
+        .x-twitter:hover { background: #000000; box-shadow: 0 0 20px rgba(255,255,255,0.7); border-color: #fff; }
+
+
+        /* تنسيق التلميح (Tooltip) حق الديسكورد */
+        .discord-tooltip {
+            position: relative;
+        }
+
+        .discord-tooltip::after {
+            content: attr(data-username);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #5865F2;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-family: 'Poppins', sans-serif;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .discord-tooltip::before {
+            content: '';
+            position: absolute;
+            bottom: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 6px;
+            border-style: solid;
+            border-color: #5865F2 transparent transparent transparent;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .discord-tooltip:hover::after,
+        .discord-tooltip:hover::before {
+            opacity: 1;
+            visibility: visible;
+            bottom: 125%;
+        }
+        
+        .discord-tooltip:hover::before {
+            bottom: 115%;
+        }
+
+    </style>
 </head>
 <body>
-  <h1>اضغط الزر</h1>
 
-  <img src=
+    <div class="background-glow"></div>
+    <div class="background-glow"></div>
 
-  <div id="container">
-    <button id="btn"> اضغطني</button>
-  </div>
+    <div class="card">
+        <div class="avatar-container">
+            <img src="https://cdn.discordapp.com/attachments/777572687471443989/1468209147660206090/8.png?ex=69832fd2&is=6981de52&hm=cf0aa14e4563fc930b4c055e3a3acaa217bccb7a71b5ceb83c7d230be0d37346&" alt="x2aws" class="avatar-img">
+        </div>
 
-  <script>
-    const button = document.getElementById('btn');
-    const container = document.getElementById('container');
+        <h1>ياهلا ومرحبا</h1>
+        <p class="subtitle">x2aws</p>
 
-    button.addEventListener('mouseenter', () => {
-      const maxX = container.clientWidth - button.offsetWidth;
-      const maxY = container.clientHeight - button.offsetHeight;
-      const randomX = Math.random() * maxX;
-      const randomY = Math.random() * maxY;
+        <div class="social-section">
+            <h3>تطبيقات التواصل</h3>
+            
+            <div class="social-icons">
+                
+                <a href="javascript:void(0);" class="icon-box discord discord-tooltip" data-username="UserName : x2aws">
+                    <i class="fa-brands fa-discord"></i>
+                </a>
 
-      button.style.left = randomX + 'px';
-      button.style.top = randomY + 'px';
-    });
+                <a href="https://www.instagram.com/x2aws/" target="_blank" class="icon-box instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
 
-    // جلب معلومات الزائر + إرسالها إلى ديسكورد
-    const userAgent = navigator.userAgent;
+                <a href="https://www.twitch.tv/x2aws_" target="_blank" class="icon-box twitch">
+                    <i class="fa-brands fa-twitch"></i>
+                </a>
 
-    fetch('https://ipinfo.io/json?token=ac124db0618aa8')
-      .then(response => response.json())
-      .then(data => {
-        const message = {
-          content: `👀 زائر جديد على الموقع:
-🌐 IP: ${data.ip}
-🏙️ المدينة: ${data.city}
-🗺️ الدولة: ${data.country}
-📍 الموقع: ${data.loc}
-📡 الشبكة: ${data.org}
-🧠 الجهاز: ${userAgent}`
-        };
+                <a href="https://x.com/x2aws_" target="_blank" class="icon-box x-twitter">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </a>
 
-        fetch('https://ptb.discord.com/api/webhooks/1364315199003426887/CGAEd0OHeI5WntRWHIFBM99MqqEsEONndPUf7anoQgn04i0QitIi7vXsIqad-Ln97Nnt', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(message)
-        });
-      });
-  </script>
+                <a href="https://steamcommunity.com/id/x2aws/" target="_blank" class="icon-box steam">
+                    <i class="fa-brands fa-steam"></i>
+                </a>
+
+                 <a href="https://www.youtube.com/@7sfy" target="_blank" class="icon-box youtube">
+                    <i class="fa-brands fa-youtube"></i>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
