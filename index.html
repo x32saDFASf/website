@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>x2aws</title>
     
+    <title>x2aws | أوس فهد</title>
+    <meta name="title" content="x2aws | الموقع الرسمي">
+    <meta name="description" content="الموقع الشخصي الرسمي لـ x2aws (أوس فهد). تواصل معي عبر منصات التواصل الاجتماعي ومتابعة آخر المشاريع.">
+    <meta name="keywords" content="x2aws, x2aws.site, أوس فهد, Aws Fahad, مصمم, مشاريع">
+    <meta name="author" content="Aws Fahad">
+    <meta name="robots" content="index, follow">
     <link rel="icon" href="https://cdn.discordapp.com/attachments/777572687471443989/1468209147660206090/8.png?ex=69832fd2&is=6981de52&hm=cf0aa14e4563fc930b4c055e3a3acaa217bccb7a71b5ceb83c7d230be0d37346&" type="image/png">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -73,7 +78,7 @@
             padding: 60px 40px;
             border-radius: 30px;
             width: 90%;
-            max-width: 600px; /* زيادة العرض قليلاً ليستوعب الأيقونات براحة */
+            max-width: 600px; 
             text-align: center;
             box-shadow: 0 20px 50px rgba(0,0,0,0.3);
             transition: transform 0.3s;
@@ -145,7 +150,6 @@
             justify-content: center;
             flex-wrap: wrap;
             gap: 15px;
-            /* إضافة مهمة: لضمان الترتيب من اليسار لليمين حتى لو الموقع عربي */
             direction: ltr; 
         }
 
@@ -177,12 +181,8 @@
         .steam:hover { background: #171a21; box-shadow: 0 0 20px #66c0f4; border-color: #66c0f4; }
         .x-twitter:hover { background: #000000; box-shadow: 0 0 20px rgba(255,255,255,0.7); border-color: #fff; }
 
-
-        /* تنسيق التلميح (Tooltip) حق الديسكورد */
-        .discord-tooltip {
-            position: relative;
-        }
-
+        /* Tooltip Discord */
+        .discord-tooltip { position: relative; }
         .discord-tooltip::after {
             content: attr(data-username);
             position: absolute;
@@ -203,7 +203,6 @@
             pointer-events: none;
             z-index: 10;
         }
-
         .discord-tooltip::before {
             content: '';
             position: absolute;
@@ -218,18 +217,7 @@
             transition: all 0.3s ease;
             z-index: 10;
         }
-
-        .discord-tooltip:hover::after,
-        .discord-tooltip:hover::before {
-            opacity: 1;
-            visibility: visible;
-            bottom: 125%;
-        }
-        
-        .discord-tooltip:hover::before {
-            bottom: 115%;
-        }
-
+        .discord-tooltip:hover::after, .discord-tooltip:hover::before { opacity: 1; visibility: visible; }
     </style>
 </head>
 <body>
@@ -249,31 +237,24 @@
             <h3>تطبيقات التواصل</h3>
             
             <div class="social-icons">
-                
                 <a href="javascript:void(0);" class="icon-box discord discord-tooltip" data-username="UserName : x2aws">
                     <i class="fa-brands fa-discord"></i>
                 </a>
-
                 <a href="https://www.instagram.com/x2aws/" target="_blank" class="icon-box instagram">
                     <i class="fa-brands fa-instagram"></i>
                 </a>
-
                 <a href="https://www.twitch.tv/x2aws_" target="_blank" class="icon-box twitch">
                     <i class="fa-brands fa-twitch"></i>
                 </a>
-
                 <a href="https://x.com/x2aws_" target="_blank" class="icon-box x-twitter">
                     <i class="fa-brands fa-x-twitter"></i>
                 </a>
-
                 <a href="https://steamcommunity.com/id/x2aws/" target="_blank" class="icon-box steam">
                     <i class="fa-brands fa-steam"></i>
                 </a>
-
-                 <a href="https://www.youtube.com/@7sfy" target="_blank" class="icon-box youtube">
+                <a href="https://www.youtube.com/@7sfy" target="_blank" class="icon-box youtube">
                     <i class="fa-brands fa-youtube"></i>
                 </a>
-
             </div>
         </div>
     </div>
