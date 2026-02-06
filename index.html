@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>x2aws | أوس فهد</title>
-    <meta name="title" content="x2aws | الموقع الرسمي">
-    <meta name="description" content="الموقع الشخصي الرسمي لـ x2aws (أوس فهد). تواصل معي عبر منصات التواصل الاجتماعي ومتابعة آخر المشاريع.">
-    <meta name="keywords" content="x2aws, x2aws.site, أوس فهد, Aws Fahad, مصمم, مشاريع">
-    <meta name="author" content="Aws Fahad">
-    <meta name="robots" content="index, follow">
-    <link rel="icon" href="https://cdn.discordapp.com/attachments/777572687471443989/1468209147660206090/8.png?ex=69832fd2&is=6981de52&hm=cf0aa14e4563fc930b4c055e3a3acaa217bccb7a71b5ceb83c7d230be0d37346&" type="image/png">
+    <title>x2aws</title>
+    
+    <meta name="title" content="x2aws">
+    <meta name="description" content="الموقع الشخصي الرسمي لـ x2aws (أوس فهد).">
+    <meta name="keywords" content="x2aws, x2aws.site, أوس فهد, Aws Fahad">
+
+    <link rel="icon" href="https://cdn.discordapp.com/attachments/777572687471443989/1468209147660206090/8.png?ex=69867b92&is=69852a12&hm=37e39dd5294eb8ffcda85122c7d997c7c3b5a0bb48c29a69ceed5f87f7263c4b&" type="image/png">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;500;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
@@ -34,14 +34,15 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             min-height: 100vh;
+            width: 100%;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: center; /* توسيط أفقي */
+            align-items: center;     /* توسيط عمودي */
             overflow: hidden;
             position: relative;
+            margin: 0;
         }
 
-        /* خلفية متحركة */
         .background-glow {
             position: absolute;
             width: 500px;
@@ -69,7 +70,6 @@
             50% { transform: translate(50px, 50px); }
         }
 
-        /* البطاقة */
         .card {
             background: var(--card-bg);
             backdrop-filter: blur(16px);
@@ -78,17 +78,18 @@
             padding: 60px 40px;
             border-radius: 30px;
             width: 90%;
-            max-width: 600px; 
+            max-width: 600px;
             text-align: center;
             box-shadow: 0 20px 50px rgba(0,0,0,0.3);
             transition: transform 0.3s;
+            position: relative; /* لضمان ثبات الموقع */
+            z-index: 1;
         }
 
         .card:hover {
             transform: translateY(-5px);
         }
 
-        /* الصورة الشخصية */
         .avatar-container {
             width: 120px;
             height: 120px;
@@ -127,7 +128,6 @@
             text-transform: uppercase;
         }
 
-        /* قسم التواصل */
         .social-section h3 {
             font-size: 1.2rem;
             margin-bottom: 25px;
@@ -150,7 +150,7 @@
             justify-content: center;
             flex-wrap: wrap;
             gap: 15px;
-            direction: ltr; 
+            direction: ltr; /* لضمان ترتيب الأيقونات من اليسار */
         }
 
         .icon-box {
@@ -173,7 +173,6 @@
             transform: translateY(-5px) scale(1.1);
         }
 
-        /* ألوان الأزرار عند التحويم */
         .instagram:hover { background: #E1306C; box-shadow: 0 0 20px #E1306C; }
         .youtube:hover { background: #FF0000; box-shadow: 0 0 20px #FF0000; }
         .twitch:hover { background: #9146FF; box-shadow: 0 0 20px #9146FF; }
@@ -181,7 +180,6 @@
         .steam:hover { background: #171a21; box-shadow: 0 0 20px #66c0f4; border-color: #66c0f4; }
         .x-twitter:hover { background: #000000; box-shadow: 0 0 20px rgba(255,255,255,0.7); border-color: #fff; }
 
-        /* Tooltip Discord */
         .discord-tooltip { position: relative; }
         .discord-tooltip::after {
             content: attr(data-username);
@@ -227,7 +225,7 @@
 
     <div class="card">
         <div class="avatar-container">
-            <img src="https://cdn.discordapp.com/attachments/777572687471443989/1468209147660206090/8.png?ex=69832fd2&is=6981de52&hm=cf0aa14e4563fc930b4c055e3a3acaa217bccb7a71b5ceb83c7d230be0d37346&" alt="x2aws" class="avatar-img">
+            <img src="https://cdn.discordapp.com/attachments/777572687471443989/1468209147660206090/8.png?ex=69867b92&is=69852a12&hm=37e39dd5294eb8ffcda85122c7d997c7c3b5a0bb48c29a69ceed5f87f7263c4b&" alt="x2aws" class="avatar-img">
         </div>
 
         <h1>ياهلا ومرحبا</h1>
@@ -235,7 +233,6 @@
 
         <div class="social-section">
             <h3>تطبيقات التواصل</h3>
-            
             <div class="social-icons">
                 <a href="javascript:void(0);" class="icon-box discord discord-tooltip" data-username="UserName : x2aws">
                     <i class="fa-brands fa-discord"></i>
