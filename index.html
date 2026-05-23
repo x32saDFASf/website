@@ -72,9 +72,11 @@
     </div>
 
     <script>
+        // بيانات الربط الأساسية لمشروع Supabase الخاص بك
         const SUPABASE_URL = "https://ozztsleapvquwdqqyfsiz.supabase.co"; 
         const SUPABASE_ANON_KEY = "sb_publishable_P7EDU-S3M3I30-rlL_ZP6g_qDJSa2iw"; 
 
+        // إنشاء كائن الاتصال باسم فريد لمنع تكرار التعريف المتسبب في خطأ الـ Console السابق
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         let isSignInMode = true;
@@ -116,6 +118,7 @@
         }
         setupToggle();
 
+        // نظام التسجيل والولوج عبر البريد الإلكتروني والرمز السري
         authForm.addEventListener('submit', async (e) => {
             e.preventDefault(); 
             
@@ -140,6 +143,7 @@
             }
         });
 
+        // نظام تسجيل الدخول بواسطة حساب قوقل
         googleBtn.addEventListener('click', async (e) => {
             e.preventDefault();
             showMessage('جاري الاتصال بجوجل...', 'bg-blue-50 text-blue-700');
@@ -148,8 +152,8 @@
                 const { data, error } = await supabaseClient.auth.signInWithOAuth({
                     provider: 'google',
                     options: {
-                        // تعديل مرن لضمان عودة المستخدم لنفس الصفحة بعد تسجيل الدخول دون فقد المسار
-                        redirectTo: window.location.origin + window.location.pathname
+                        // تحديد مسار مجلد الـ GitHub Pages الدقيق ليعود إليه المتصفح مباشرة بعد تفويض قوقل
+                        redirectTo: "https://x32sadfasf.github.io/website/"
                     }
                 });
                 if (error) throw error;
