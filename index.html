@@ -1,260 +1,169 @@
 <!DOCTYPE html>
-<html dir="rtl" lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>x2aws</title>
-    
-    <meta name="title" content="x2aws">
-    <meta name="description" content="الموقع الشخصي الرسمي لـ x2aws (أوس فهد).">
-    <meta name="keywords" content="x2aws, x2aws.site, أوس فهد, Aws Fahad">
-
-    <link rel="icon" href="https://cdn.discordapp.com/attachments/777572687471443989/1468209147660206090/8.png?ex=69867b92&is=69852a12&hm=37e39dd5294eb8ffcda85122c7d997c7c3b5a0bb48c29a69ceed5f87f7263c4b&" type="image/png">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;500;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --bg-color: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.6);
-            --text-main: #f8fafc;
-            --text-secondary: #94a3b8;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Cairo', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            min-height: 100vh;
-            width: 100%;
-            display: flex;
-            justify-content: center; /* توسيط أفقي */
-            align-items: center;     /* توسيط عمودي */
-            overflow: hidden;
-            position: relative;
-            margin: 0;
-        }
-
-        .background-glow {
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, #6366f1 0%, transparent 70%);
-            opacity: 0.2;
-            top: -10%;
-            left: -10%;
-            filter: blur(80px);
-            animation: float 8s ease-in-out infinite;
-            z-index: -1;
-        }
-        
-        .background-glow:nth-child(2) {
-            top: auto;
-            bottom: -10%;
-            left: auto;
-            right: -10%;
-            background: radial-gradient(circle, #ec4899 0%, transparent 70%);
-            animation-delay: 4s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(50px, 50px); }
-        }
-
-        .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 60px 40px;
-            border-radius: 30px;
-            width: 90%;
-            max-width: 600px;
-            text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            transition: transform 0.3s;
-            position: relative; /* لضمان ثبات الموقع */
-            z-index: 1;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .avatar-container {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            padding: 4px;
-            background: linear-gradient(135deg, #6366f1, #ec4899);
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
-        }
-
-        .avatar-img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--bg-color);
-            display: block;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 5px;
-            background: linear-gradient(to right, #fff, #cbd5e1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .subtitle {
-            font-family: 'Poppins', sans-serif;
-            color: #6366f1;
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 40px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .social-section h3 {
-            font-size: 1.2rem;
-            margin-bottom: 25px;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .social-section h3::after {
-            content: '';
-            display: block;
-            width: 50%;
-            height: 3px;
-            background: #6366f1;
-            margin: 8px auto 0;
-            border-radius: 2px;
-        }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            direction: ltr; /* لضمان ترتيب الأيقونات من اليسار */
-        }
-
-        .icon-box {
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 26px;
-            color: #fff;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.05);
-            position: relative;
-        }
-
-        .icon-box:hover {
-            transform: translateY(-5px) scale(1.1);
-        }
-
-        .instagram:hover { background: #E1306C; box-shadow: 0 0 20px #E1306C; }
-        .youtube:hover { background: #FF0000; box-shadow: 0 0 20px #FF0000; }
-        .twitch:hover { background: #9146FF; box-shadow: 0 0 20px #9146FF; }
-        .discord:hover { background: #5865F2; box-shadow: 0 0 20px #5865F2; }
-        .steam:hover { background: #171a21; box-shadow: 0 0 20px #66c0f4; border-color: #66c0f4; }
-        .x-twitter:hover { background: #000000; box-shadow: 0 0 20px rgba(255,255,255,0.7); border-color: #fff; }
-
-        .discord-tooltip { position: relative; }
-        .discord-tooltip::after {
-            content: attr(data-username);
-            position: absolute;
-            bottom: 120%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #5865F2;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-family: 'Poppins', sans-serif;
-            white-space: nowrap;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            pointer-events: none;
-            z-index: 10;
-        }
-        .discord-tooltip::before {
-            content: '';
-            position: absolute;
-            bottom: 110%;
-            left: 50%;
-            transform: translateX(-50%);
-            border-width: 6px;
-            border-style: solid;
-            border-color: #5865F2 transparent transparent transparent;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-        .discord-tooltip:hover::after, .discord-tooltip:hover::before { opacity: 1; visibility: visible; }
-    </style>
+    <title>EchoStream - الدخول والتسجيل</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body>
+<body class="bg-[#f4f7f9] min-h-screen flex items-center justify-center font-sans p-4">
 
-    <div class="background-glow"></div>
-    <div class="background-glow"></div>
-
-    <div class="card">
-        <div class="avatar-container">
-            <img src="https://cdn.discordapp.com/attachments/777572687471443989/1468209147660206090/8.png?ex=69867b92&is=69852a12&hm=37e39dd5294eb8ffcda85122c7d997c7c3b5a0bb48c29a69ceed5f87f7263c4b&" alt="x2aws" class="avatar-img">
+    <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-8 md:p-10 flex flex-col items-center">
+        
+        <div class="w-16 h-16 bg-[#eef2f6] text-[#1e293b] font-bold text-xl rounded-full flex items-center justify-center mb-6 shadow-inner">
+            E
         </div>
 
-        <h1>ياهلا ومرحبا</h1>
-        <p class="subtitle">x2aws</p>
+        <h1 id="page-title" class="text-2xl md:text-3xl font-bold text-[#0f172a] text-center mb-2">Welcome to EchoStream</h1>
+        <p id="page-subtitle" class="text-sm text-[#64748b] text-center mb-8">Sign in to continue</p>
 
-        <div class="social-section">
-            <h3>تطبيقات التواصل</h3>
-            <div class="social-icons">
-                <a href="javascript:void(0);" class="icon-box discord discord-tooltip" data-username="UserName : x2aws">
-                    <i class="fa-brands fa-discord"></i>
-                </a>
-                <a href="https://www.instagram.com/x2aws/" target="_blank" class="icon-box instagram">
-                    <i class="fa-brands fa-instagram"></i>
-                </a>
-                <a href="https://www.twitch.tv/x2aws_" target="_blank" class="icon-box twitch">
-                    <i class="fa-brands fa-twitch"></i>
-                </a>
-                <a href="https://x.com/x2aws_" target="_blank" class="icon-box x-twitter">
-                    <i class="fa-brands fa-x-twitter"></i>
-                </a>
-                <a href="https://steamcommunity.com/id/x2aws/" target="_blank" class="icon-box steam">
-                    <i class="fa-brands fa-steam"></i>
-                </a>
-                <a href="https://www.youtube.com/@7sfy" target="_blank" class="icon-box youtube">
-                    <i class="fa-brands fa-youtube"></i>
-                </a>
+        <button id="google-btn" type="button" class="w-full flex items-center justify-center gap-3 border border-[#e2e8f0] hover:bg-gray-50 text-[#334155] font-medium py-3 px-4 rounded-xl transition duration-200 mb-6">
+            <svg class="w-5 h-5" viewBox="0 0 24 24">
+                <path fill="#EA4335" d="M12.24 10.285V14.4h6.887c-.275 1.565-1.88 4.604-6.887 4.604-4.33 0-7.866-3.577-7.866-8s3.536-8 7.866-8c2.46 0 4.105 1.025 5.047 1.926l3.227-3.103C18.22 1.824 15.48.96 12.24.96c-6.085 0-11 4.915-11 11s4.915 11 11 11c6.353 0 10.573-4.464 10.573-10.76 0-.726-.077-1.282-.175-1.915H12.24z"/>
+            </svg>
+            <span class="text-sm">Continue with Google</span>
+        </button>
+
+        <div class="w-full flex items-center my-2">
+            <div class="flex-grow border-t border-[#e2e8f0]"></div>
+            <span class="mx-4 text-xs font-semibold text-[#94a3b8] tracking-wider">OR</span>
+            <div class="flex-grow border-t border-[#e2e8f0]"></div>
+        </div>
+
+        <div id="message-box" class="w-full text-center text-xs p-3 rounded-xl hidden my-2"></div>
+
+        <form id="auth-form" class="w-full space-y-5 mt-4">
+            <div>
+                <label class="block text-xs font-semibold text-[#475569] text-left mb-2" dir="ltr">Email</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-[#94a3b8]">
+                        <i class="fa-regular fa-envelope"></i>
+                    </span>
+                    <input type="email" id="email" placeholder="you@example.com" dir="ltr" required
+                           class="w-full pl-11 pr-4 py-3 bg-[#f8fafc] border border-[#e2e8f0] rounded-xl text-sm focus:outline-none focus:border-[#0f172a] focus:bg-white transition text-[#334155]">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold text-[#475569] text-left mb-2" dir="ltr">Password</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-[#94a3b8]">
+                        <i class="fa-solid fa-lock"></i>
+                    </span>
+                    <input type="password" id="password" placeholder="••••••••" dir="ltr" required
+                           class="w-full pl-11 pr-4 py-3 bg-[#f8fafc] border border-[#e2e8f0] rounded-xl text-sm focus:outline-none focus:border-[#0f172a] focus:bg-white transition text-[#334155]">
+                </div>
+            </div>
+
+            <button type="submit" id="submit-btn" class="w-full bg-[#0f172a] hover:bg-[#1e293b] text-white font-medium py-3 rounded-xl transition shadow-md text-sm">
+                Sign in
+            </button>
+        </form>
+
+        <div class="w-full flex items-center justify-between mt-8 text-xs font-medium">
+            <a href="#" id="forgot-link" class="text-[#64748b] hover:text-[#0f172a]">Forgot password?</a>
+            <div id="toggle-text" class="text-[#64748b]">
+                Need an account? <a href="#" id="toggle-auth" class="text-[#0f172a] font-bold hover:underline">Sign up</a>
             </div>
         </div>
+
     </div>
 
+    <script>
+        const SUPABASE_URL = "https://ozztsleapvquwdqqyfsiz.supabase.co"; 
+        const SUPABASE_ANON_KEY = "sb_publishable_P7EDU-S3M3I30-rlL_ZP6g_qDJSa2iw"; 
+
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let isSignInMode = true;
+
+        const authForm = document.getElementById('auth-form');
+        const pageTitle = document.getElementById('page-title');
+        const pageSubtitle = document.getElementById('page-subtitle');
+        const submitBtn = document.getElementById('submit-btn');
+        const toggleText = document.getElementById('toggle-text');
+        const messageBox = document.getElementById('message-box');
+        const googleBtn = document.getElementById('google-btn');
+
+        document.getElementById('forgot-link').addEventListener('click', (e) => {
+            e.preventDefault();
+            showMessage('ميزة استعادة كلمة المرور ستفعل قريباً', 'bg-blue-50 text-blue-700');
+        });
+
+        function setupToggle() {
+            const toggleLink = document.getElementById('toggle-auth');
+            if (toggleLink) {
+                toggleLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    isSignInMode = !isSignInMode;
+                    
+                    if (isSignInMode) {
+                        pageTitle.innerText = "Welcome to EchoStream";
+                        pageSubtitle.innerText = "Sign in to continue";
+                        submitBtn.innerText = "Sign in";
+                        toggleText.innerHTML = `Need an account? <a href="#" id="toggle-auth" class="text-[#0f172a] font-bold hover:underline">Sign up</a>`;
+                    } else {
+                        pageTitle.innerText = "Create an Account";
+                        pageSubtitle.innerText = "Sign up to start your journey";
+                        submitBtn.innerText = "Sign up";
+                        toggleText.innerHTML = `Already have an account? <a href="#" id="toggle-auth" class="text-[#0f172a] font-bold hover:underline">Sign in</a>`;
+                    }
+                    setupToggle();
+                });
+            }
+        }
+        setupToggle();
+
+        authForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); 
+            
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            showMessage('جاري المعالجة...', 'bg-blue-50 text-blue-700');
+
+            try {
+                if (isSignInMode) {
+                    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+                    if (error) throw error;
+                    showMessage('تم تسجيل الدخول بنجاح!', 'bg-green-50 text-green-700');
+                } else {
+                    const { data, error } = await supabaseClient.auth.signUp({ email, password });
+                    if (error) throw error;
+                    showMessage('تم إنشاء الحساب! تفقد بريدك الإلكتروني لتفعيله.', 'bg-green-50 text-green-700');
+                }
+            } catch (error) {
+                console.error("Auth Error:", error);
+                showMessage(error.message, 'bg-red-50 text-red-700');
+            }
+        });
+
+        googleBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            showMessage('جاري الاتصال بجوجل...', 'bg-blue-50 text-blue-700');
+            
+            try {
+                const { data, error } = await supabaseClient.auth.signInWithOAuth({
+                    provider: 'google',
+                    options: {
+                        // تعديل مرن لضمان عودة المستخدم لنفس الصفحة بعد تسجيل الدخول دون فقد المسار
+                        redirectTo: window.location.origin + window.location.pathname
+                    }
+                });
+                if (error) throw error;
+            } catch (error) {
+                console.error("Google Auth Error:", error);
+                showMessage("فشل الاتصال بجوجل: " + error.message, 'bg-red-50 text-red-700');
+            }
+        });
+
+        function showMessage(text, classes) {
+            messageBox.innerText = text;
+            messageBox.className = `w-full text-center text-xs p-3 rounded-xl my-2 ${classes}`;
+            messageBox.classList.remove('hidden');
+        }
+    </script>
 </body>
 </html>
